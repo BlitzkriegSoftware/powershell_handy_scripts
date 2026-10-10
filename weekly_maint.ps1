@@ -4,6 +4,7 @@
 
 #>
 #Requires -RunAsAdministrator 
+
 $FLAG = [Environment]::IsPrivilegedProcess
 if (-not $FLAG) {
     Write-Host "This script must be run as an administrator." -ForegroundColor Red
@@ -25,6 +26,14 @@ Remove-Item -Path "$env:windir\SoftwareDistribution\Download\*" -Recurse -Force 
 Start-Service -Name "wuauserv"
 
 Clear-DnsClientCache
+
+Update-MpSignature
+Start-MpScan -ScanType FullScan
+# Offline deep scan
+# Start-MpWDOScan
+
+Start-Process -FilePath "$env:windir\System32\mrt.exe" -ArgumentList "/q /f:y" -Wait
+Write-Output "Log in: $env:windir\debug\mrt.log"
 
 Optimize-Volume -DriveLetter C -Trim -Verbose
 
