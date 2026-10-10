@@ -35,7 +35,7 @@ Start-MpScan -ScanType FullScan
 Start-Process -FilePath "$env:windir\System32\mrt.exe" -ArgumentList "/q /f:y" -Wait
 Write-Output "Log in: $env:windir\debug\mrt.log"
 
-Optimize-Volume -DriveLetter C -Trim -Verbose
+Optimize-Volume -DriveLetter C -ReTrim -Verbose
 
 Write-Output "Y" | chkdsk /scan /perf /sdcleanup /forceofflinefix  /offlinescanandfix c:
 exit 0
