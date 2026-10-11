@@ -5,11 +5,11 @@
 #>
 #Requires -RunAsAdministrator 
 
-$FLAG = [Environment]::IsPrivilegedProcess
-if (-not $FLAG) {
-    Write-Host "This script must be run as an administrator." -ForegroundColor Red
-    exit 2
-}
+# $FLAG = [Environment]::IsPrivilegedProcess
+# if (-not $FLAG) {
+#     Write-Host "This script must be run as an administrator." -ForegroundColor Red
+#     exit 2
+# }
 
 Repair-WindowsImage -Online -StartComponentCleanup
 Repair-WindowsImage -Online -RestoreHealth
